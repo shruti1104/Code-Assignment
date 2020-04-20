@@ -10,6 +10,7 @@ import { CodeServiceService } from '../code-service.service';
 export class HomeComponent implements OnInit {
 
   public games;
+  public gameOnSearch;
   public content;
   public searchword;
   public currentPage;
@@ -27,6 +28,7 @@ export class HomeComponent implements OnInit {
     this.apiService.getGamesData().subscribe((data) => {
       //console.log(data);
       this.games = data;
+      this.gameOnSearch = data;
       this.groupByFn();
     });
 
@@ -36,7 +38,10 @@ export class HomeComponent implements OnInit {
   search(value: string) {
     if (value) {
       let filterValue = value.toLowerCase();
-      this.games = this.games.filter(option => option.title?.toLowerCase().startsWith(filterValue));
+      this.games = this.gameOnSearch.filter(option => option.title?.toLowerCase().startsWith(filterValue));
+    }
+    else {
+      this.games = this.gameOnSearch;
     }
   }
 

@@ -1,6 +1,8 @@
 .search-input {
   width: 40%;
-  height: 40px;
+  /* height: 50%; */
+  padding: 10px 10px;
+  font-size: 16px;
 }
 
 .spacer {
@@ -32,7 +34,7 @@
 }
 
 .card-size {
-  width: 500px;
+  width: 100%;
 }
 
 .card-spacing {

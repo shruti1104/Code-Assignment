@@ -6,7 +6,7 @@
     </span>
     <span class="spacer"></span>
     <input class="search-input" type="text" [(ngModel)]="searchword" (input)="search(searchword)"
-      placeholder="Search (by name)" value="">
+      placeholder="Search (by title)" value="">
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -32,7 +32,7 @@
 <!-- Render Games Data and Pagination -->
 <div class="card-container">
   <ng-container
-    *ngFor="let game of games | sortArray : sortValue: 'score' |paginate: { itemsPerPage: 7, currentPage: currentPage }">
+    *ngFor="let game of games | sortArray : sortValue: 'score' |paginate: { itemsPerPage: 6, currentPage: currentPage }">
     <div class="card-spacing" *ngIf="game.title">
       <mat-card class="card-size">
         <mat-card-header class="card-header">
