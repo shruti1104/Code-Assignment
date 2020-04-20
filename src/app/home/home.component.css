@@ -17,6 +17,10 @@
   margin-left: 10px;
 }
 
+.select-dropdown {
+  margin-left: 50px;
+}
+
 .card-container {
   padding: 20px 20px;
   display: flex;
@@ -29,7 +33,6 @@
 
 .card-size {
   width: 500px;
-
 }
 
 .card-spacing {
@@ -40,7 +43,7 @@
 }
 
 .header-image {
-  background-image: url('../../assets/game-icon.jpg');
+  background-image: url("../../assets/game-icon.jpg");
   background-size: cover;
 }
 

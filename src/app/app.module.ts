@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { SortArrayPipe } from './sort-array.pipe';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {MatIconModule} from '@angular/material/icon';
     FormsModule,
     MatChipsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

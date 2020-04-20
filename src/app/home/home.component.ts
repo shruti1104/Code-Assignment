@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {CodeServiceService} from '../code-service.service';
+import { CodeServiceService } from '../code-service.service';
 
 @Component({
   selector: 'app-home',
@@ -14,25 +14,29 @@ export class HomeComponent implements OnInit {
   public searchword;
   public currentPage;
   public newArray: string[] = [];
-  public objectsByKeyValue : string[] = [];
+  public objectsByKeyValue: string[] = [];
   public sortValue: string;
+  public groupByPlatform;
+  public platformList;
+  public selected;
 
   constructor(private apiService: CodeServiceService) { }
   ngOnInit() {
 
     //Subscribe to fetch data from API
-    this.apiService.getGamesData().subscribe((data)=>{
-      console.log(data);
+    this.apiService.getGamesData().subscribe((data) => {
+      //console.log(data);
       this.games = data;
+      this.groupByFn();
     });
+
   }
 
   // function to search game title that starts with input string
   search(value: string) {
     if (value) {
-    let filterValue = value.toLowerCase();
-    this.games =  this.games.filter(option => option.title?.toLowerCase().startsWith(filterValue));
-    console.log(this.games);
+      let filterValue = value.toLowerCase();
+      this.games = this.games.filter(option => option.title?.toLowerCase().startsWith(filterValue));
     }
   }
 
@@ -45,22 +49,25 @@ export class HomeComponent implements OnInit {
     this.sortValue = 'aesc';
   }
 
-// Accepts the array and key
-groupBy = (array, key) => {
-  // Return the end result
-  return array.reduce((result, currentValue) => {
-    // If an array already present for key, push it to the array. Else create an array and push the object
-    (result[currentValue[key]] = result[currentValue[key]] || []).push(
-      currentValue
-    );
-    debugger;
-    return result;
-  }, {}); // empty object is the initial value for result object
-};
+  //Groupby Platform implementation
+  groupBy = (array, key) => {
+    array.shift();
+    return array.reduce((result, currentValue) => {
+      (result[currentValue[key]] = result[currentValue[key]] || []).push(
+        currentValue
+      );
+      return result;
+    }, {});
+  };
 
-  groupByFn(){
-    const groupByPlatform = this.groupBy(this.games, 'platform');
-    console.log('groupByPlatform' + groupByPlatform);
+  groupByFn() {
+    this.groupByPlatform = this.groupBy(this.games, 'platform');
+    console.log('groupByPlatform' + this.groupByPlatform);
+    this.platformList = Object.keys(this.groupByPlatform);
+  }
+
+  selectedPlatform() {
+    this.games = this.groupByPlatform[this.selected];
   }
 }
 
