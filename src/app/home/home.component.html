@@ -1,0 +1,46 @@
+<!-- Toolbar for Header and Search bar -->
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>
+      <mat-label>Games Arena</mat-label>
+    </span>
+    <span class="spacer"></span>
+    <input class="search-input" type="text"  [(ngModel)]="searchword" (input)="search(searchword)" placeholder="Search (by name)" value="">
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<!-- Sorting Order selector div -->
+<div class = "selector-panel">
+  <mat-label>Sort by Score   </mat-label>
+  <button mat-mini-fab class = "icon-button" color="primary" (click)="sortDesc()">
+    <mat-icon>arrow_drop_up</mat-icon>
+  </button>
+  <button mat-mini-fab class = "icon-button" color="primary" (click)="groupByFn()">
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+</div>
+
+<!-- Render Games Data and Pagination -->
+<div class="card-container">
+   <ng-container *ngFor="let game of games | sortArray : sortValue: 'score' |paginate: { itemsPerPage: 7, currentPage: currentPage }">
+    <div class = "card-spacing" *ngIf="game.title">
+      <mat-card class="card-size">
+        <mat-card-header class = "card-header">
+          <div mat-card-avatar class="header-image"></div>
+          <mat-card-title>{{game.title}}</mat-card-title>
+          <mat-card-subtitle>{{game.platform}}</mat-card-subtitle>
+          <span *ngIf="game.editors_choice == 'Y'">⭐</span>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content class="card-content">
+          <span>Genre:
+            {{game.genre}}
+          </span>
+          <span class="content-float-right">{{game.score}}</span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-container>
+</div>
+<pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+
